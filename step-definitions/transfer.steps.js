@@ -51,11 +51,19 @@ When('I tap the quick amount {string}', async (amount) => {
 });
 
 When('I enter transfer remarks {string}', async (note) => {
-  await transferPage.enterRemarks(note);
+  // Scroll remarks-input into view using UiScrollable before typing
+  const remarksInput = await $('android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("remarks-input"))');
+  await remarksInput.waitForDisplayed({ timeout: 10000 });
+  await remarksInput.clearValue();
+  await remarksInput.setValue(note);
 });
 
 When('I tap the Send Money button', async () => {
-  await transferPage.tapSendButton();
+  // Scroll send-btn into view using UiScrollable before tapping
+  const sendBtn = await $('android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("send-btn"))');
+  await sendBtn.waitForDisplayed({ timeout: 10000 });
+  await driver.hideKeyboard().catch(() => {});
+  await sendBtn.click();
 });
 
 Then('I should see the transaction authorization screen', async () => {

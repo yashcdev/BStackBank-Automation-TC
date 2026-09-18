@@ -7,6 +7,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env'), override: true });
 const BS_USER = process.env.BROWSERSTACK_USERNAME;
 const BS_KEY = process.env.BROWSERSTACK_ACCESS_KEY;
 const platform = process.env.PLATFORM || 'android';
+// Supported PLATFORM values: android, androidPixel, androidTablet, ios
 
 if (!BS_USER || !BS_KEY) {
   throw new Error('BROWSERSTACK_USERNAME and BROWSERSTACK_ACCESS_KEY must be set in .env or environment');
@@ -29,7 +30,13 @@ exports.config = {
 
   maxInstances: 1,
 
-  capabilities: [platform === 'ios' ? capabilities.ios : capabilities.android],
+  capabilities: [
+    platform === 'ios'
+      ? capabilities.ios
+      : platform === 'androidPixel'
+        ? capabilities.androidPixel
+        : capabilities.android,
+  ],
 
   logLevel: 'info',
   bail: 0,
@@ -51,7 +58,9 @@ exports.config = {
     snippets: true,
     source: true,
     strict: false,
-    tagExpression: '',
+    // Exclude @qrscan from the default run — it requires PLATFORM=androidPixel
+    // with enableCameraImageInjection. Run it via: npm run test:qrscan
+    tagExpression: platform === 'androidPixel' ? '' : 'not @qrscan',
     timeout: 120000,
     ignoreUndefinedDefinitions: false,
   },

@@ -32,6 +32,21 @@ const capabilities = {
     },
   },
 
+  androidPixel: {
+    platformName: 'android',
+    'appium:deviceName': 'Google Pixel 8',
+    'appium:platformVersion': '14.0',
+    'appium:app': process.env.BS_APP_ID,
+    'appium:automationName': 'UiAutomator2',
+    'appium:noReset': true,
+    'appium:newCommandTimeout': 300,
+    'bstack:options': {
+      ...bstackOptions('Android Pixel', 'BStackBank QR Scan Test'),
+      enableBiometric: true,
+      enableCameraImageInjection: true,
+    },
+  },
+
   androidTablet: {
     platformName: 'android',
     'appium:deviceName': 'Samsung Galaxy Tab S8',

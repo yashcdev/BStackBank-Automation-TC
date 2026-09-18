@@ -217,7 +217,7 @@ Then('I should see the home dashboard', async () => {
 });
 
 When('I tap the show password button', async () => {
-  const btn = await $('~Show Pasword');
+  const btn = await $('android=new UiSelector().resourceId("toggle-password-visibility")');
   await btn.waitForDisplayed({ timeout: 5000 });
   await btn.click();
 });

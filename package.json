@@ -10,7 +10,9 @@
     "test:regression": "wdio run wdio.conf.js --cucumberOpts.tagExpression='@regression'",
     "test:login": "wdio run wdio.conf.js --cucumberOpts.tagExpression='@login'",
     "test:transfer": "wdio run wdio.conf.js --cucumberOpts.tagExpression='@transfer'",
-    "test:transactions": "wdio run wdio.conf.js --cucumberOpts.tagExpression='@transactions'"
+    "test:transactions": "wdio run wdio.conf.js --cucumberOpts.tagExpression='@transactions'",
+    "test:qrscan": "PLATFORM=androidPixel wdio run wdio.conf.js --cucumberOpts.tagExpression='@qrscan'",
+    "test:pixel": "PLATFORM=androidPixel wdio run wdio.conf.js"
   },
   "dependencies": {},
   "devDependencies": {
